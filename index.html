@@ -246,6 +246,12 @@ function finishDrag(event) {
 
 scene.addEventListener('pointercancel', finishDrag);
 scene.addEventListener('lostpointercapture', finishDrag);
+
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+window.setInterval(() => {
+  if (!drag && !reducedMotion.matches && !document.hidden) rotate(1);
+}, 2000);
+
 const sectionLinks = [...document.querySelectorAll('.section-dots a')];
 const sections = sectionLinks.map(link => document.querySelector(link.hash).closest('section'));
 if ('IntersectionObserver' in window) {
